@@ -47,7 +47,7 @@ RUN curl -sSL \
   chmod +x /usr/local/bin/protoc-gen-twirp && \
   chmod +x /usr/local/bin/protoc-gen-twirp_python
 
-ENV PROTOBUF_VERSION=3.6.1
+ENV PROTOBUF_VERSION=3.10.0
 RUN mkdir -p /tmp/protoc && \
   curl -sSL \
   https://github.com/protocolbuffers/protobuf/releases/download/v${PROTOBUF_VERSION}/protoc-${PROTOBUF_VERSION}-linux-x86_64.zip \
@@ -75,7 +75,7 @@ ENV \
   PROTOTOOL_PROTOC_BIN_PATH=/usr/bin/protoc \
   PROTOTOOL_PROTOC_WKT_PATH=/usr/include \
   GRPC_VERSION=1.21.3 \
-  PROTOBUF_VERSION=3.8.0 \
+  PROTOBUF_VERSION=3.10.0 \
   ALPINE_GRPC_VERSION_SUFFIX=r0 \
   ALPINE_PROTOBUF_VERSION_SUFFIX=r0
 
