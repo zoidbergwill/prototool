@@ -33,6 +33,9 @@ var messageFieldsTimeLinter = NewLinter(
 	checkMessageFieldsTime,
 )
 
+// Certain field names have the word "time" in their name but do not apply to a timestamp
+var exemptions = []string{"runtime"}
+
 func checkMessageFieldsTime(add func(*text.Failure), dirPath string, descriptors []*FileDescriptor) error {
 	return runVisitor(messageFieldsTimeVisitor{baseAddVisitor: newBaseAddVisitor(add)}, descriptors)
 }
@@ -61,10 +64,19 @@ func (v messageFieldsTimeVisitor) VisitOneofField(field *proto.OneOfField) {
 	v.visitField(field.Field)
 }
 
+func (v messageFieldsTimeVisitor) isExempt(name string) bool {
+	for i := range exemptions {
+		if exemptions[i] == name {
+			return true
+		}
+	}
+	return false
+}
+
 // no map fields on purpose
 
 func (v messageFieldsTimeVisitor) visitField(field *proto.Field) {
-	if strings.Contains(field.Name, "time") && field.Type != "google.protobuf.Timestamp" {
+	if strings.Contains(field.Name, "time") && !v.isExempt(field.Name) && field.Type != "google.protobuf.Timestamp" {
 		v.AddFailuref(field.Position, `Field %q must be a google.protobuf.Timestamp.`, field.Name)
 	}
 }

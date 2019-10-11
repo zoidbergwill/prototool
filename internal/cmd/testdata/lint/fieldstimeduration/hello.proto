@@ -22,6 +22,7 @@ message Foo {
   }
   string times = 1;
   map<string, int64> map_time = 2;
+  string runtime = 3;
 }
 
 message Bar {
