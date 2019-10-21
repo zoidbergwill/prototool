@@ -92,3 +92,5 @@ ENV GOGO_PROTOBUF_VERSION=1.2.1 \
   GRPC_WEB_VERSION=1.0.4 \
   TWIRP_VERSION=5.7.0 \
   YARPC_VERSION=1.37.3
+
+COPY --from=builder /go/pkg/mod/github.com/gogo/protobuf@v${GOGO_PROTOBUF_VERSION}/gogoproto /usr/include/gogoproto
